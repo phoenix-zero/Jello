@@ -1,0 +1,38 @@
+{
+  "name": "jello-backend",
+  "version": "1.0.0",
+  "description": "GraphQl backend for Jello",
+  "main": "index.ts",
+  "contributors": [
+    "Soham Kar <sohamkar76@gmail.com> (https://github.com/2bit-hack)",
+    "Anubhab Mukherjee <anubhab.mukherjee2013@gmail.com> (https://github.com/phoenix-zero)"
+  ],
+  "license": "GPL-3.0-or-later",
+  "scripts": {
+    "dev": "vite-node"
+  },
+  "devDependencies": {
+    "@types/dotenv-flow": "^3.1.0",
+    "@types/express": "^4.17.12",
+    "@types/node": "^15.12.5",
+    "@typescript-eslint/eslint-plugin": "^4.28.0",
+    "@typescript-eslint/parser": "^4.28.0",
+    "@yarnpkg/pnpify": "^3.0.0-rc.7",
+    "eslint": "^7.29.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.2",
+    "typescript": "^4.3.4",
+    "vite": "^2.3.8",
+    "vite-plugin-node": "^0.0.8"
+  },
+  "dependencies": {
+    "apollo-server": "^2.25.2",
+    "apollo-server-express": "^2.25.2",
+    "dotenv-flow": "^3.2.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.1",
+    "reflect-metadata": "^0.1.13",
+    "type-graphql": "^1.1.1"
+  }
+}
