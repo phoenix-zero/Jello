@@ -1,36 +1,38 @@
 import { Field, ObjectType, Resolver, Query, Arg } from 'type-graphql';
+import { Table, Column, Model } from 'sequelize-typescript';
 
 @ObjectType({ description: 'Object representing books' })
-export class Book {
+@Table
+export class Book extends Model {
   @Field()
+  @Column
   title!: string;
 
   @Field()
+  @Column
   author?: string;
+
+  @Field(() => String)
+  get created(): string {
+    return this.createdAt;
+  }
 }
 
 @Resolver(_of => Book)
 export class BookResolver {
-  private readonly items: Book[] = [
-    {
-      title: 'The Awakening',
-      author: 'Kate Chopin',
-    },
-    {
-      title: 'City of Glass',
-      author: 'Paul Auster',
-    },
-  ];
-
   @Query(_returns => Book, { nullable: true })
-  async book(@Arg('title') title: string): Promise<Book | undefined> {
-    return await this.items.find(book => book.title === title);
+  async book(@Arg('title') title: string): Promise<Book | null> {
+    return await Book.findOne({
+      where: {
+        title,
+      },
+    });
   }
 
   @Query(_returns => [Book], {
     description: 'Get all the books from around the world ',
   })
   async books(): Promise<Book[]> {
-    return await this.items;
+    return await Book.findAll();
   }
 }

@@ -3,11 +3,18 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 
-import { BookResolver } from './Books';
+import { Book, BookResolver } from './Books';
+import './database/connect';
+import sequelize from './database/connect';
 
 const app = express();
 
-const main = async () => {
+const registerSequelize = async () => {
+  sequelize.addModels([Book]);
+  sequelize.sync();
+};
+
+const registerApollo = async () => {
   const schema = await buildSchema({
     resolvers: [BookResolver],
   });
@@ -15,6 +22,11 @@ const main = async () => {
   const server = new ApolloServer({ schema });
 
   server.applyMiddleware({ app });
+};
+
+const main = () => {
+  registerSequelize();
+  registerApollo();
 };
 
 main();

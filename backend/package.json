@@ -15,6 +15,7 @@
     "@types/dotenv-flow": "^3.1.0",
     "@types/express": "^4.17.12",
     "@types/node": "^15.12.5",
+    "@types/validator": "^13.1.4",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
     "@yarnpkg/pnpify": "^3.0.0-rc.7",
@@ -32,7 +33,11 @@
     "dotenv-flow": "^3.2.0",
     "express": "^4.17.1",
     "graphql": "^15.5.1",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.6.4",
+    "sequelize-typescript": "^2.1.0",
     "type-graphql": "^1.1.1"
   }
 }
