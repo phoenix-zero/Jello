@@ -1,8 +1,8 @@
 import { Field, ObjectType, Resolver, Query, Arg } from 'type-graphql';
 import { Table, Column, Model } from 'sequelize-typescript';
 
-@ObjectType({ description: 'Object representing books' })
-@Table
+@ObjectType('Book', { description: 'Object representing books' })
+@Table({ modelName: 'Book' })
 export class Book extends Model {
   @Field()
   @Column
@@ -12,8 +12,8 @@ export class Book extends Model {
   @Column
   author?: string;
 
-  @Field(() => String)
-  get created(): string {
+  @Field(() => Date)
+  get created(): Date {
     return this.createdAt;
   }
 }

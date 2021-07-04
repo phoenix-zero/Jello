@@ -19,7 +19,10 @@ const registerApollo = async () => {
     resolvers: [BookResolver],
   });
 
-  const server = new ApolloServer({ schema });
+  const server = new ApolloServer({
+    schema,
+    tracing: process.env.NODE_ENV !== 'production',
+  });
 
   server.applyMiddleware({ app });
 };
