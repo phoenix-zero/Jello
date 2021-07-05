@@ -7,11 +7,9 @@ import {
   Query,
   Resolver,
   Mutation,
-  FieldResolver,
 } from 'type-graphql';
-import { Book } from './Books';
 
-@ObjectType('User', { description: 'Object representing users' })
+@ObjectType('User', { description: 'Represents a Jello user' })
 @Table({ modelName: 'User' })
 export class User extends Model {
   @Field(_returns => String)
@@ -31,9 +29,6 @@ export class User extends Model {
   @Field()
   @Column
   picture!: string;
-
-  @Field({ nullable: true })
-  book?: Book;
 
   @Field()
   get created(): Date {
@@ -72,10 +67,5 @@ export class UserResolver {
   @Mutation(_returns => User, { nullable: true })
   async updateUser(@Arg('user') _user: UserInput): Promise<User | null> {
     return null;
-  }
-
-  @FieldResolver(_returns => Book)
-  async book(): Promise<Book | null> {
-    return await Book.findOne();
   }
 }

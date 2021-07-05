@@ -3,21 +3,23 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
 
-import { Book, BookResolver } from './models/Books';
 import { User, UserResolver } from './models/User';
 import './database/connect';
 import sequelize from './database/connect';
+import { Board, BoardResolver } from './models/Board';
+import { List } from './models/List';
+import { Task } from './models/Task';
 
 const app = express();
 
 const registerSequelize = async () => {
-  sequelize.addModels([Book, User]);
+  sequelize.addModels([User, Board, List, Task]);
   sequelize.sync();
 };
 
 const registerApollo = async () => {
   const schema = await buildSchema({
-    resolvers: [BookResolver, UserResolver],
+    resolvers: [UserResolver, BoardResolver],
   });
 
   const server = new ApolloServer({
@@ -29,11 +31,7 @@ const registerApollo = async () => {
   server.applyMiddleware({ app });
 };
 
-const main = () => {
-  registerSequelize();
-  registerApollo();
-};
-
-main();
+registerSequelize();
+registerApollo();
 
 export default app;
