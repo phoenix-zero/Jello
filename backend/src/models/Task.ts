@@ -1,12 +1,18 @@
-import { BelongsTo, Column, Model, Table } from 'sequelize-typescript';
-import { Field, ObjectType } from 'type-graphql';
+import {
+  Column,
+  DataType,
+  ForeignKey,
+  Model,
+  Table,
+} from 'sequelize-typescript';
+import { Field, Int, ObjectType } from 'type-graphql';
 import { List } from './List';
 
 @ObjectType('Task', { description: 'Represents a Jello Task' })
 @Table({ modelName: 'Task' })
 export class Task extends Model {
-  @Field(_returns => String)
-  get taskId(): string {
+  @Field(_returns => Int)
+  get taskId(): number {
     return this.id;
   }
 
@@ -22,7 +28,7 @@ export class Task extends Model {
   @Column
   deadline!: Date;
 
-  @Field(_returns => List)
-  @BelongsTo(_table => List, 'id')
+  @ForeignKey(_table => List)
+  @Column(DataType.INTEGER)
   list!: List;
 }

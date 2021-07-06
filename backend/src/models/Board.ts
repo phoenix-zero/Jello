@@ -1,5 +1,20 @@
-import { Column, Model, Table } from 'sequelize-typescript';
-import { Arg, Field, Int, ObjectType, Query, Resolver } from 'type-graphql';
+import {
+  Column,
+  CreatedAt,
+  HasMany,
+  Model,
+  Table,
+  UpdatedAt,
+} from 'sequelize-typescript';
+import {
+  Arg,
+  Field,
+  Int,
+  Mutation,
+  ObjectType,
+  Query,
+  Resolver,
+} from 'type-graphql';
 import { List } from './List';
 
 @ObjectType('Board', { description: 'Represents a Jello board' })
@@ -15,8 +30,22 @@ export class Board extends Model {
   title!: string;
 
   @Field()
-  @Column
+  @Column({ defaultValue: '' })
   description!: string;
+
+  @Field(_returns => [List])
+  @HasMany(_values => List)
+  lists!: List[];
+
+  @Field()
+  @Column
+  @CreatedAt
+  createdAt!: Date;
+
+  @Field()
+  @Column
+  @UpdatedAt
+  updatedAt!: Date;
 }
 
 @Resolver(_of => Board)
@@ -29,5 +58,17 @@ export class BoardResolver {
       },
       include: [List],
     });
+  }
+
+  @Mutation(_returns => Board, { nullable: true })
+  async addBoard(
+    @Arg('title') title: string,
+    @Arg('description', { nullable: true }) description: string,
+  ): Promise<Board | null> {
+    const board = await Board.create({
+      title,
+      description,
+    });
+    return board;
   }
 }
