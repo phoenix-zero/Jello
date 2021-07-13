@@ -1,4 +1,4 @@
-import { Router, Express } from 'express';
+import { Router } from 'express';
 import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { exit } from 'process';
@@ -27,9 +27,6 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((id, done) => {
   done(null, id as string);
-  // User.findById(id, function (err, user) {
-  //   done(err, user);
-  // });
 });
 
 const authRouter = Router();
@@ -43,17 +40,26 @@ authRouter.get(
 
 authRouter.get(
   '/callback',
-  passport.authenticate('google', { failureRedirect: '/auth/fail' }),
-  (_req, res) => {
-    res.redirect('/');
+  passport.authenticate('google', {
+    failureRedirect: process.env.ALLOW_ORIGIN,
+  }),
+  (req, res) => {
+    console.log(req.user);
+    res.redirect(process.env.ALLOW_ORIGIN ?? '/graphql');
+    // res.send(req.user);
   },
 );
 
-authRouter.get('/fail', (_req, res) => {
-  res.send('Hol up');
+authRouter.get('/profile', (req, res) => {
+  req.user ? res.send(req.user) : res.status(401).send('Not logged in');
 });
 
-export default (app: Express): void => {
+authRouter.get('/logout', (req, res) => {
+  req.logOut();
+  res.send(true);
+});
+
+export default (app: Router): void => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use('/auth', authRouter);

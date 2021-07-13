@@ -30,5 +30,6 @@ module.exports = {
     semi: ['error', 'always'],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'react/react-in-jsx-scope': 'off',
+    'no-duplicate-imports': ['error', { includeExports: true }],
   },
 };

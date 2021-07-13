@@ -2,6 +2,10 @@ import 'reflect-metadata';
 import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { buildSchema } from 'type-graphql';
+import cors from 'cors';
+import session from 'express-session';
+import cookieParser from 'cookie-parser';
+import { exit } from 'process';
 
 import { User, UserResolver } from './models/User';
 import './database/connect';
@@ -12,6 +16,26 @@ import { Task } from './models/Task';
 import auth from './auth';
 
 const app = express();
+
+const { COOKIE_SECRET } = process.env;
+if (!COOKIE_SECRET) exit(-1);
+
+app.use(
+  cors({
+    origin: process.env.ALLOW_ORIGIN ?? '*',
+    credentials: true,
+  }),
+);
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: COOKIE_SECRET,
+    saveUninitialized: true,
+    resave: true,
+  }),
+);
+app.use(cookieParser(COOKIE_SECRET));
 
 auth(app);
 

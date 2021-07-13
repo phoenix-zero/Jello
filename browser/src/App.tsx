@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import Login from './Login';
 
 const App = (): JSX.Element => {
   const [count, setCount] = useState(0);
 
   return (
     <div className="App">
+      <Login />
       <header className="App-header">
         <p>Hello Vite + React!</p>
         <p>
