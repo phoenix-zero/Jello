@@ -51,7 +51,7 @@ export class Board extends Model {
 @Resolver(_of => Board)
 export class BoardResolver {
   @Query(_returns => Board, { nullable: true })
-  async board(@Arg('boardId') id: number): Promise<Board | null> {
+  async board(@Arg('boardId', () => Int) id: number): Promise<Board | null> {
     return await Board.findOne({
       where: {
         id,

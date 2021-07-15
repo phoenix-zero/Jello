@@ -2,6 +2,7 @@ import { Router } from 'express';
 import passport from 'passport';
 import { OAuth2Strategy as GoogleStrategy } from 'passport-google-oauth';
 import { exit } from 'process';
+import { User } from './models/User';
 
 const { GOOGLE_CONSUMER_KEY, GOOGLE_CONSUMER_SECRET, HOST } = process.env;
 
@@ -14,19 +15,61 @@ passport.use(
       clientSecret: GOOGLE_CONSUMER_SECRET,
       callbackURL: `${HOST}/auth/callback`,
     },
-    (accessToken, refreshToken, profile, done) => {
-      console.log(accessToken, refreshToken, profile);
-      done(null, profile);
+    async (_accessToken, _refreshToken, profile, done) => {
+      try {
+        const user = await User.findOne({
+          where: {
+            email: profile.emails?.find(
+              email =>
+                (
+                  email as {
+                    value: string;
+                    verified: boolean;
+                  }
+                ).verified,
+            )?.value,
+          },
+        });
+        if (!user) {
+          const user = await User.create({
+            name: profile.displayName,
+            picture: profile.photos?.[0]?.value,
+            email: profile.emails?.find(
+              email =>
+                (
+                  email as {
+                    value: string;
+                    verified: boolean;
+                  }
+                ).verified,
+            )?.value,
+          });
+          done(null, user);
+        } else {
+          user.update({
+            name: profile.displayName,
+            picture: profile.photos?.[0]?.value,
+          });
+          done(null, user);
+        }
+      } catch (err) {
+        done(err, null);
+      }
     },
   ),
 );
 
 passport.serializeUser((user, done) => {
-  done(null, user);
+  done(null, user.userId);
 });
 
-passport.deserializeUser((id, done) => {
-  done(null, id as string);
+passport.deserializeUser(async (id: number, done) => {
+  try {
+    const user = await User.findByPk(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
 });
 
 const authRouter = Router();
@@ -46,13 +89,8 @@ authRouter.get(
   (req, res) => {
     console.log(req.user);
     res.redirect(process.env.ALLOW_ORIGIN ?? '/graphql');
-    // res.send(req.user);
   },
 );
-
-authRouter.get('/profile', (req, res) => {
-  req.user ? res.send(req.user) : res.status(401).send('Not logged in');
-});
 
 authRouter.get('/logout', (req, res) => {
   req.logOut();

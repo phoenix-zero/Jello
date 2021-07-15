@@ -52,6 +52,11 @@ const registerApollo = async () => {
   const server = new ApolloServer({
     schema,
     tracing: process.env.NODE_ENV !== 'production',
+    playground: {
+      settings: {
+        'request.credentials': 'include',
+      },
+    },
     context: obj => obj,
   });
 

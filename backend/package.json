@@ -9,7 +9,10 @@
   ],
   "license": "GPL-3.0-or-later",
   "scripts": {
-    "dev": "nodemon"
+    "build": "tsc",
+    "start": "node build",
+    "dev": "ts-node .",
+    "dev:watch": "nodemon"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.2",
