@@ -1,4 +1,12 @@
-import { Column, Model, Table, Unique } from 'sequelize-typescript';
+import { ExpressContext } from 'apollo-server-express';
+import {
+  Column,
+  CreatedAt,
+  Model,
+  Table,
+  Unique,
+  UpdatedAt,
+} from 'sequelize-typescript';
 import {
   Arg,
   Field,
@@ -7,6 +15,7 @@ import {
   Query,
   Resolver,
   Mutation,
+  Ctx,
 } from 'type-graphql';
 
 @ObjectType('User', { description: 'Represents a Jello user' })
@@ -31,16 +40,15 @@ export class User extends Model {
   picture!: string;
 
   @Field()
-  get created(): Date {
-    return this.createdAt;
-  }
+  @Column
+  @CreatedAt
+  createdAt!: Date;
 
   @Field()
-  get updated(): Date {
-    return this.updatedAt;
-  }
+  @Column
+  @UpdatedAt
+  updatedAt!: Date;
 }
-
 @InputType()
 export class UserInput {
   @Field({ nullable: true })
@@ -56,7 +64,7 @@ export class UserInput {
 @Resolver(_of => User)
 export class UserResolver {
   @Query(_returns => User, { nullable: true })
-  async user(@Arg('email') email: string): Promise<User | null> {
+  async user(@Arg('email') email: string): Promise<Optional<User>> {
     return await User.findOne({
       where: {
         email,
@@ -64,8 +72,13 @@ export class UserResolver {
     });
   }
 
+  @Query(_returns => User, { nullable: true })
+  async currentUser(@Ctx() context: ExpressContext): Promise<Optional<User>> {
+    return context.req.user;
+  }
+
   @Mutation(_returns => User, { nullable: true })
-  async updateUser(@Arg('user') _user: UserInput): Promise<User | null> {
+  async updateUser(@Arg('user') _user: UserInput): Promise<Optional<User>> {
     return null;
   }
 }

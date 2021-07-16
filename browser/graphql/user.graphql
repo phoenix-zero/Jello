@@ -1,0 +1,14 @@
+query CurrentUser {
+  currentUser {
+    name
+    email
+    picture
+    id: userId
+  }
+}
+
+mutation Test($name: String) {
+  updateUser(user: { name: $name }) {
+    name
+  }
+}

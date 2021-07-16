@@ -25,7 +25,7 @@ module.exports = {
   },
   rules: {
     'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
+    quotes: ['error', 'single', { avoidEscape: true }],
     semi: ['error', 'always'],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'react/react-in-jsx-scope': 'off',
@@ -36,6 +36,9 @@ module.exports = {
       files: ['*.js'],
       env: {
         node: true,
+      },
+      rules: {
+        '@typescript-eslint/no-var-requires': 'off',
       },
     },
   ],

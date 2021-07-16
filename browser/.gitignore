@@ -4,4 +4,10 @@ dist
 dist-ssr
 *.local
 .eslintcache
+
+# Ignore build
 build
+
+# Keep only graphql files under graphql directory
+graphql/*
+!graphql/*.graphql

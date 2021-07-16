@@ -1,41 +1,13 @@
-import { useState } from 'react';
-import Login from './Login';
+import { FC } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-const App = (): JSX.Element => {
-  const [count, setCount] = useState(0);
+import { DefaultNav } from './navigators';
 
+const App: FC = () => {
   return (
-    <div className="App">
-      <Login />
-      <header className="App-header">
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount(count => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer">
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer">
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
+    <Router>
+      <DefaultNav />
+    </Router>
   );
 };
 
