@@ -1,0 +1,26 @@
+{
+  "name": "typescript-apollo-sdk",
+  "version": "1.0.0",
+  "description": "A plugin for @graphql-codegen",
+  "license": "MIT",
+  "dependencies": {
+    "@graphql-codegen/plugin-helpers": "^1.18.8",
+    "@graphql-codegen/visitor-plugin-common": "1.22.0",
+    "auto-bind": "~4.0.0",
+    "change-case-all": "1.0.14",
+    "tslib": "~2.3.0"
+  },
+  "peerDependencies": {
+    "graphql": "^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0",
+    "graphql-tag": "^2.0.0"
+  },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "typings": "dist/index.d.ts",
+  "typescript": {
+    "definition": "dist/index.d.ts"
+  },
+  "devDependencies": {
+    "typescript": "^4.3.5"
+  }
+}
