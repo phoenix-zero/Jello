@@ -1,0 +1,22 @@
+<svg width="450" height="700"
+  xmlns="http://www.w3.org/2000/svg">
+  <g id="Layer_1">
+    <title>Layer</title>
+    <rect stroke="#000" id="svg_1" height="280" width="150" y="20" x="50" fill="#7D3429"/>
+    <rect stroke="#000" id="svg_2" height="640" width="150" y="20" x="250" fill="#7D3429"/>
+    <rect id="svg_3" height="50" width="130" y="40" x="60" stroke="#000" fill="#fff"/>
+    <rect id="svg_7" height="50" width="130" y="160" x="60" stroke="#000" fill="#fff"/>
+    <rect id="svg_8" height="50" width="130" y="100" x="60" stroke="#000" fill="#fff"/>
+    <rect id="svg_9" height="50" width="130" y="220" x="60" stroke="#000" fill="#fff"/>
+    <rect id="svg_10" height="50" width="130" y="40" x="260" stroke="#000" fill="#fff"/>
+    <rect id="svg_11" height="50" width="130" y="160" x="260" stroke="#000" fill="#fff"/>
+    <rect id="svg_12" height="50" width="130" y="100" x="260" stroke="#000" fill="#fff"/>
+    <rect id="svg_13" height="50" width="130" y="220" x="260" stroke="#000" fill="#fff"/>
+    <rect id="svg_14" height="50" width="130" y="280" x="260" stroke="#000" fill="#fff"/>
+    <rect id="svg_15" height="50" width="130" y="400" x="260" stroke="#000" fill="#fff"/>
+    <rect id="svg_16" height="50" width="130" y="340" x="260" stroke="#000" fill="#fff"/>
+    <rect id="svg_17" height="50" width="130" y="460" x="260" stroke="#000" fill="#fff"/>
+    <rect id="svg_18" height="50" width="130" y="520" x="260" stroke="#000" fill="#fff"/>
+    <rect stroke="#000" id="svg_19" height="50" width="130" y="580" x="260" fill="#fff"/>
+  </g>
+</svg>

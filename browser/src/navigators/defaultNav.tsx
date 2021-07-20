@@ -1,17 +1,42 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import Header from '@/components/Header';
+import LandingPage from '@/pages/Landing';
+import { useSelector } from '@/store';
+import { fetchCurrentUser } from '@/store/action/user';
+import { useDispatch } from 'react-redux';
 
 const DefaultRouter: FC = () => {
-  return (
+  const dispatch = useDispatch();
+
+  const isLoggedIn = useSelector(state => Boolean(state.user.currentUser));
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, []);
+
+  return isLoggedIn ? (
+    <>
+      <Header />
+      <Switch>
+        <Route path="/home">
+          <div />
+        </Route>
+        <Route path="/board">
+          <div />
+        </Route>
+        <Route path="/">
+          <Redirect to="/home" />
+        </Route>
+      </Switch>
+    </>
+  ) : (
     <Switch>
-      <Route path="/home">
-        <div />
+      <Route exact path="/">
+        <LandingPage />
       </Route>
-      <Route path="/board">
-        <div />
-      </Route>
-      <Route path="/">
-        <Redirect to="/home" />
+      <Route path="*">
+        <Redirect to="/" />
       </Route>
     </Switch>
   );

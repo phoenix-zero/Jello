@@ -8,6 +8,8 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -17,7 +19,7 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: ['react', '@typescript-eslint', 'prettier', 'import'],
   settings: {
     react: {
       version: 'detect',
@@ -29,7 +31,24 @@ module.exports = {
     semi: ['error', 'always'],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     'react/react-in-jsx-scope': 'off',
-    'no-duplicate-imports': ['error', { includeExports: true }],
+    'import/no-duplicates': ['error', { considerQueryString: true }],
+    'import/no-unresolved': 'off',
+    'react/prop-types': 'off',
+    'import/order': [
+      'error',
+      {
+        groups: [
+          'index',
+          'sibling',
+          'parent',
+          'internal',
+          'external',
+          'builtin',
+          'object',
+          'type',
+        ],
+      },
+    ],
   },
   overrides: [
     {

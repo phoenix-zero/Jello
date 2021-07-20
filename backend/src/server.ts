@@ -17,15 +17,15 @@ import auth from './auth';
 
 const app = express();
 
-const { COOKIE_SECRET } = process.env;
-if (!COOKIE_SECRET) exit(-1);
+const { COOKIE_SECRET, ALLOW_ORIGIN } = process.env;
+if (!COOKIE_SECRET || !ALLOW_ORIGIN) exit(-1);
 
-app.use(
-  cors({
-    origin: process.env.ALLOW_ORIGIN ?? '*',
-    credentials: true,
-  }),
-);
+const corsOptions = {
+  origin: ALLOW_ORIGIN,
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(
@@ -60,7 +60,7 @@ const registerApollo = async () => {
     context: obj => obj,
   });
 
-  server.applyMiddleware({ app });
+  server.applyMiddleware({ app, cors: corsOptions });
 };
 
 registerSequelize();

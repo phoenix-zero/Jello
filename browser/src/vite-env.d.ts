@@ -1,1 +1,2 @@
-/// <reference types="vite/client" />
+import 'vite/types/importMeta';
+/// <reference lib="dom" />
