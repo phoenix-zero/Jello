@@ -11,7 +11,7 @@ export default defineConfig({
   plugins: [viteSvg(), reactRefresh(), eslintPlugin(), reactJsx()],
   resolve: {
     alias: {
-      '@/graphql': path.resolve(__dirname, '/graphql/index'),
+      '@/gql': path.resolve(__dirname, '/gql'),
       '@': path.resolve(__dirname, '/src'),
     },
   },

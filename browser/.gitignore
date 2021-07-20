@@ -9,5 +9,5 @@ dist-ssr
 build
 
 # Keep only graphql files under graphql directory
-graphql/*
-!graphql/*.graphql
+gql/*
+!gql/*.graphql

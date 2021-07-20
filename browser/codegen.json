@@ -1,17 +1,16 @@
 {
   "overwrite": true,
   "schema": "${API_URL:http://localhost:8080}/graphql",
-  "documents": "graphql/**/*.graphql",
+  "documents": "gql/**/*.graphql",
   "generates": {
-    "graphql/index.ts": {
+    "gql/index.ts": {
       "plugins": [
         "typescript",
         "typescript-operations",
         "./typescript-apollo-sdk/build"
       ],
       "config": {
-        "imports": ["import dayjs from 'dayjs'"],
-        "scalars": { "DateTime": "dayjs#Dayjs" }
+        "scalars": { "DateTime": "string|number" }
       }
     }
   },

@@ -4,6 +4,8 @@ query CurrentUser {
     email
     picture
     id: userId
+    createdAt
+    updatedAt
   }
 }
 

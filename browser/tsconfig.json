@@ -21,8 +21,11 @@
     "jsx": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@/graphql": [
-        "./graphql/index"
+      "@/gql": [
+        "./gql"
+      ],
+      "@/gql/*": [
+        "./gql/*"
       ],
       "@/*": [
         "./src/*"

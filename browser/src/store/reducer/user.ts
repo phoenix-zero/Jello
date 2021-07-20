@@ -1,5 +1,5 @@
 import { fetchCurrentUser } from '../action/user';
-import { CurrentUserQuery } from '@/graphql';
+import { CurrentUserQuery } from '@/gql';
 
 import { createSlice } from '@reduxjs/toolkit';
 
