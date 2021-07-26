@@ -16,8 +16,9 @@ module.exports = {
   plugins: ['@typescript-eslint', 'prettier'],
   rules: {
     'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
+    quotes: ['error', 'single', { avoidEscape: true }],
     semi: ['error', 'always'],
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-non-null-assertion': 'off',
   },
 };

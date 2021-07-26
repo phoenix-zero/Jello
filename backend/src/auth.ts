@@ -97,7 +97,7 @@ authRouter.get('/logout', (req, res) => {
   res.send(true);
 });
 
-export default (app: Router): void => {
+export default (app: { use: Router['use'] }): void => {
   app.use(passport.initialize());
   app.use(passport.session());
   app.use('/auth', authRouter);

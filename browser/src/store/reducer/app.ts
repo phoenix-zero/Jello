@@ -1,9 +1,10 @@
+import { ThemePreference } from '@/gql';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState: {
-  theme: 'light' | 'dark' | 'system';
+  theme: ThemePreference;
 } = {
-  theme: 'system',
+  theme: ThemePreference.System,
 };
 
 const appSlice = createSlice({

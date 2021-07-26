@@ -1,3 +1,4 @@
+import { ThemePreference } from '@/gql';
 import { useSelector } from '@/store';
 import {
   unstable_createMuiStrictModeTheme as createTheme,
@@ -25,7 +26,10 @@ const ThemeProvider: FC = props => {
   const isDark = useMediaQuery('(prefers-color-scheme: dark)');
   const choice = useSelector(state => state.app.theme);
   const preference =
-    (choice === 'system' && isDark) || choice === 'dark' ? 'dark' : 'light';
+    (choice === ThemePreference.System && isDark) ||
+    choice === ThemePreference.Dark
+      ? 'dark'
+      : 'light';
 
   return (
     <OriginalThemeProvider theme={{ ...theme(preference) }}>

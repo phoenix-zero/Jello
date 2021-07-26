@@ -2,6 +2,7 @@ import { ExpressContext } from 'apollo-server-express';
 import {
   Column,
   CreatedAt,
+  DataType,
   Model,
   Table,
   Unique,
@@ -16,7 +17,29 @@ import {
   Resolver,
   Mutation,
   Ctx,
+  registerEnumType,
+  Subscription,
+  PubSub,
+  Root,
+  UseMiddleware,
+  Publisher,
+  ResolverFilterData,
 } from 'type-graphql';
+import AuthMiddleware from '../middleware/Auth';
+import { SocketContext } from './types';
+
+enum ThemePreference {
+  light = 'light',
+  dark = 'dark',
+  system = 'system',
+}
+
+registerEnumType(ThemePreference, {
+  name: 'ThemePreference',
+  description: "User's choice of theme",
+});
+
+type UserTheme = { theme: ThemePreference; user: number };
 
 @ObjectType('User', { description: 'Represents a Jello user' })
 @Table({ modelName: 'User' })
@@ -48,6 +71,13 @@ export class User extends Model {
   @Column
   @UpdatedAt
   updatedAt!: Date;
+
+  @Field(_type => ThemePreference)
+  @Column({
+    type: DataType.ENUM({ values: Object.keys(ThemePreference) }),
+    defaultValue: 'system',
+  })
+  theme!: ThemePreference;
 }
 @InputType()
 export class UserInput {
@@ -80,5 +110,38 @@ export class UserResolver {
   @Mutation(_returns => User, { nullable: true })
   async updateUser(@Arg('user') _user: UserInput): Promise<Optional<User>> {
     return null;
+  }
+
+  @Mutation(_returns => User, { nullable: true })
+  @UseMiddleware(AuthMiddleware)
+  async updateUserTheme(
+    @Arg('theme', _returns => ThemePreference) theme: ThemePreference,
+    @Ctx() context: ExpressContext,
+    @PubSub('THEME_CHANGE')
+    publish: Publisher<UserTheme>,
+  ): Promise<Optional<User>> {
+    const user = context.req.user!;
+
+    user.theme = theme;
+    user.save();
+
+    publish({ theme, user: user.id });
+
+    return user;
+  }
+
+  @Subscription(_returns => ThemePreference, {
+    topics: 'THEME_CHANGE',
+    filter: ({
+      context,
+      payload,
+    }: ResolverFilterData<UserTheme, undefined, SocketContext>) => {
+      return context.connection?.context?.req.user?.id === payload.user;
+    },
+  })
+  async userTheme(
+    @Root() { theme }: UserTheme,
+  ): Promise<Optional<ThemePreference>> {
+    return theme;
   }
 }

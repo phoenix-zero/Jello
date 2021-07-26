@@ -69,87 +69,94 @@ declare module '*.pcss' {
 // images
 declare module '*.jpg' {
   import * as React from 'react';
-  export type SVGProps = Omit<
+  export type ImageProps = Omit<
     React.DetailedHTMLProps<
       React.ImgHTMLAttributes<HTMLImageElement>,
       HTMLImageElement
     >,
     'src'
   >;
-  const ReactComponent: React.FC<SVGProps>;
-  export default ReactComponent;
+  export const component: React.FC<ImageProps>;
+  export const url: string;
+  export default component;
 }
 declare module '*.jpeg' {
   import * as React from 'react';
-  export type SVGProps = Omit<
+  export type ImageProps = Omit<
     React.DetailedHTMLProps<
       React.ImgHTMLAttributes<HTMLImageElement>,
       HTMLImageElement
     >,
     'src'
   >;
-  const ReactComponent: React.FC<SVGProps>;
-  export default ReactComponent;
+  export const component: React.FC<ImageProps>;
+  export const url: string;
+  export default component;
 }
 declare module '*.png' {
   import * as React from 'react';
-  export type SVGProps = Omit<
+  export type ImageProps = Omit<
     React.DetailedHTMLProps<
       React.ImgHTMLAttributes<HTMLImageElement>,
       HTMLImageElement
     >,
     'src'
   >;
-  const ReactComponent: React.FC<SVGProps>;
-  export default ReactComponent;
+  export const component: React.FC<ImageProps>;
+  export const url: string;
+  export default component;
 }
 declare module '*.gif' {
   import * as React from 'react';
-  export type SVGProps = Omit<
+  export type ImageProps = Omit<
     React.DetailedHTMLProps<
       React.ImgHTMLAttributes<HTMLImageElement>,
       HTMLImageElement
     >,
     'src'
   >;
-  const ReactComponent: React.FC<SVGProps>;
-  export default ReactComponent;
+  export const component: React.FC<ImageProps>;
+  export const url: string;
+  export default component;
 }
 declare module '*.svg' {
   import * as React from 'react';
-  export type SVGProps = Omit<
+  export type ImageProps = Omit<
     React.DetailedHTMLProps<
       React.ImgHTMLAttributes<HTMLImageElement>,
       HTMLImageElement
     >,
     'src'
   >;
-  const ReactComponent: React.FC<SVGProps>;
-  export default ReactComponent;
+  export const component: React.FC<ImageProps>;
+  export const url: string;
+  export default component;
 }
 declare module '*.ico' {
   import * as React from 'react';
-  export type SVGProps = Omit<
+  export type ImageProps = Omit<
     React.DetailedHTMLProps<
       React.ImgHTMLAttributes<HTMLImageElement>,
       HTMLImageElement
     >,
     'src'
   >;
-  const ReactComponent: React.FC<SVGProps>;
-  export default ReactComponent;
+  export const component: React.FC<ImageProps>;
+  export const url: string;
+  export default component;
 }
 declare module '*.webp' {
   import * as React from 'react';
-  export type SVGProps = Omit<
+  export type ImageProps = Omit<
     React.DetailedHTMLProps<
       React.ImgHTMLAttributes<HTMLImageElement>,
       HTMLImageElement
     >,
     'src'
   >;
-  const ReactComponent: React.FC<SVGProps>;
-  export default ReactComponent;
+  export const component: React.FC<ImageProps>;
+  export const url: string;
+  export default component;
 }
 
 // media

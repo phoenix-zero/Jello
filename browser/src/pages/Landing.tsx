@@ -18,6 +18,7 @@ import {
 } from '@material-ui/core';
 import { InvertColors } from '@material-ui/icons';
 import { FC, useCallback, useState } from 'react';
+import { ThemePreference } from '@/gql';
 
 const useStyles = makeStyles(theme => ({
   title: {},
@@ -92,21 +93,21 @@ const LandingPage: FC = () => {
                 onClose={() => setMenu(null)}>
                 <MenuItem
                   onClick={() => {
-                    dispatch(setTheme('system'));
+                    dispatch(setTheme(ThemePreference.System));
                     setMenu(null);
                   }}>
                   System Theme
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
-                    dispatch(setTheme('dark'));
+                    dispatch(setTheme(ThemePreference.Dark));
                     setMenu(null);
                   }}>
                   Dark Mode
                 </MenuItem>
                 <MenuItem
                   onClick={() => {
-                    dispatch(setTheme('light'));
+                    dispatch(setTheme(ThemePreference.Light));
                     setMenu(null);
                   }}>
                   Light Mode

@@ -5,6 +5,7 @@ import LandingPage from '@/pages/Landing';
 import { useSelector } from '@/store';
 import { fetchCurrentUser } from '@/store/action/user';
 import { useDispatch } from 'react-redux';
+import EventListener from '@/store/eventListener';
 
 const DefaultRouter: FC = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,7 @@ const DefaultRouter: FC = () => {
   return isLoggedIn ? (
     <>
       <Header />
+      <EventListener />
       <Switch>
         <Route path="/home">
           <div />

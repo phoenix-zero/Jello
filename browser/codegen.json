@@ -10,7 +10,8 @@
         "./typescript-apollo-sdk/build"
       ],
       "config": {
-        "scalars": { "DateTime": "string|number" }
+        "scalars": { "DateTime": "string|number" },
+        "tsUseEnums": true
       }
     }
   },

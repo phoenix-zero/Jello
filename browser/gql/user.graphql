@@ -6,11 +6,16 @@ query CurrentUser {
     id: userId
     createdAt
     updatedAt
+    theme
   }
 }
 
-mutation Test($name: String) {
-  updateUser(user: { name: $name }) {
-    name
+mutation updateTheme($theme: ThemePreference!) {
+  updateUserTheme(theme: $theme) {
+    theme
   }
+}
+
+subscription theme {
+  userTheme
 }
